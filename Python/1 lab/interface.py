@@ -92,9 +92,14 @@ class Calculator_Interface(QMainWindow):
     def convert(self):
         number = self.Monitor.text()
         test_result = test_input_data(number, self.status)
+        if float(number) > 10 ** 60:
+            self.Status2.setText('Слишком большое число')
+            test_result = ''
         if test_result == 'letters in number':
             self.Status2.setText('letters in number')
             self.clear_monitor()
+        elif test_result == '':
+            pass
         elif test_result == 'too match pounds':
             self.Status2.setText('too match pounds')
             self.clear_monitor()
@@ -103,10 +108,10 @@ class Calculator_Interface(QMainWindow):
         elif test_result == '1':
             self.Status2.setText('')
             if self.status == 0:
-                result = convert10to3(number, precision=9)
+                result = convert10to3(number, precision=6)
                 self.Monitor.setText(result)
             elif self.status == 1:
-                result = convert3to10(number, precision=9)
+                result = convert3to10(number, precision=6)
                 self.Monitor.setText(result)
             else:
                 print('Что-то пошло не так')

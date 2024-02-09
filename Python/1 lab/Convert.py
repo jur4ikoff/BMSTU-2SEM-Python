@@ -4,6 +4,8 @@ import unittest
 
 def test_input_data(number, status):
     number = str(number)
+    if number == '':
+        return ''
     if any(i in number for i in string.ascii_letters):
         return 'letters in number'
     if number.count('.') > 1:
@@ -15,6 +17,7 @@ def test_input_data(number, status):
 
 
 def convert10to3(number, precision=10):
+    number = float(number)
     number = str(number)
     if number[0] == '.':
         number = '0' + number
@@ -25,7 +28,6 @@ def convert10to3(number, precision=10):
     integer_part = int(number)
     fractional_part = number - integer_part
 
-    # Преобразуем целую часть в троичную
     ternary_integer = ""
     while integer_part > 0:
         remainder = integer_part % 3
@@ -44,7 +46,18 @@ def convert10to3(number, precision=10):
 
 
 def convert3to10(number, precision=10):
-    integer_part, fractional_part = str(number).split(".")
+    number = str(number)
+    if number[0] == '.':
+        number = '0' + number
+    elif number[-1] == '.':
+        number += '0'
+
+    try:
+        integer_part, fractional_part = str(number).split(".")
+    except ValueError:
+        integer_part = str(int(number))
+        fractional_part = '0'
+
     decimal_integer = sum(int(digit) * (3 ** position) for position, digit in enumerate(integer_part[::-1]))
     decimal_fractional = sum(int(digit) * (3 ** -(position + 1)) for position, digit in enumerate(fractional_part))
     res = decimal_integer + decimal_fractional
