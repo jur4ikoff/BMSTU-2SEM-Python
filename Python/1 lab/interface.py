@@ -1,22 +1,9 @@
-import sys
-import random
 import warnings
 from Convert import test_input_data, convert10to3, convert3to10
-from PyQt6.QtGui import QPolygon
 from sys import argv, exit
 from PyQt6 import uic
-from PyQt6.QtCore import Qt, QPoint
-from PyQt6.QtGui import QPainter, QColor
-from random import choice, randint
-from PyQt6.QtWidgets import QApplication
-from PyQt6.QtWidgets import QWidget, QPushButton
-from PyQt6 import uic
-
-import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 from PyQt6.QtWidgets import QLCDNumber, QLabel, QMainWindow
-from PyQt6.QtGui import QAction
-from PyQt6 import QtCore
 
 warnings.filterwarnings('ignore')
 
