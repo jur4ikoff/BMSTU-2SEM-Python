@@ -8,22 +8,24 @@ from PyQt6.QtWidgets import QLCDNumber, QLabel, QMainWindow
 warnings.filterwarnings('ignore')
 
 
-
 class Calculator_Interface(QMainWindow):
+    """class with frontend"""
+
     def __init__(self):
         super().__init__()
         uic.loadUi('calc.ui', self)
         self.initUI()
         self.binding_keys()
         self.status = 0
+
     def initUI(self):
+        """base settings"""
         self.setFixedSize(400, 620)
         self.setWindowTitle('Calculator')
         self.Status.setText('10 -> 3')
 
-
-
     def binding_keys(self):
+        '''Binding Buttons'''
         self.AuthorMenu.triggered.connect(self.show_author_info)
         self.ClearMenu.triggered.connect(self.clear_monitor)
 
@@ -44,6 +46,7 @@ class Calculator_Interface(QMainWindow):
 
         self.Convert.clicked.connect(self.convert)
         self.ClearButton.clicked.connect(self.clear_last)
+
     def button_input(self):
         """Считывание клавиш"""
         # self.label.setText(self.sender().text())
@@ -60,10 +63,13 @@ class Calculator_Interface(QMainWindow):
         self.Monitor.setText('')
 
     def clear_last(self):
+        """Clear last symbol in monitor"""
         text = self.Monitor.text()
         text = text[:-1]
         self.Monitor.setText(text)
+
     def choose_mode(self):
+        """Func change calculator mode"""
         text = self.sender().text()
         if text == '10 -> 3':
             self.status = 0
@@ -90,6 +96,7 @@ class Calculator_Interface(QMainWindow):
             self.Status.setText('3 -> 10')
 
     def convert(self):
+        """main func, that bind to convert button and validate data"""
         number = self.Monitor.text()
         test_result = test_input_data(number, self.status)
         if float(number) > 10 ** 60:
@@ -118,6 +125,7 @@ class Calculator_Interface(QMainWindow):
         else:
             print('INCORRECT')
             self.Status2.setText('INCORRECT')
+
 
 if __name__ == '__main__':
     app = QApplication(argv)
